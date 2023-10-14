@@ -51,3 +51,56 @@ INSERT INTO members
 VALUES
   ('A', '2021-01-07'),
   ('B', '2021-01-09');
+
+ 1. /*Для нахождения общей суммы, которую каждый клиент потратил в ресторане нужно:
+- обратится к таблицам sales или menu
+- объеденить обе таблицы по ключу product_id
+- сгрупировать по идентификатору клиента customer_id
+- упорядочить по агрегированному столбцу в порядке убывания, чтобы получить наибольшую потраченную сумму*/
+
+select customer_id, sum(price) amount
+from sales s
+join menu m on m.product_id = s.product_id
+group by s.customer_id
+order by amount;
+
+2. /* Для нахождения общего количества дней, которых клиент потратил посещая ресторан необходимо:
+  - использовать DISTINCT, поскольку клиент мог посетить ресторан более одного раза в день
+  - использовать функцию COUNT() перед группировкой по customer_id.
+*/
+select customer_id, count(distinct order_date) attendance
+from sales
+group by customer_id;
+
+3. select customer_id, product_name
+from sales
+join menu on menu.product_id = sales.product_id
+group by customer_id;
+
+4. /* Для поиска самого покупаемого товара и нахождения количества покупок клиентов необходимо:
+  - таблицу sales необходимо присоединить к таблице menu, чтобы получить product_name
+  - сгрупировать по product_name и использовать в запросе count*/
+select product_name, count(*) as count
+from sales
+join menu on menu.product_id = sales.product_id
+group by product_name
+order by count desc;
+
+select customer_id, max(product_name)
+from sales
+join menu on menu.product_id = sales.product_id
+group by customer_id;
+
+select sales.customer_id, order_date, product_name
+from sales
+join members on sales.customer_id = members.customer_id
+join menu on menu.product_id = sales.product_id 
+where order_date >= join_date
+group by customer_id;
+
+select sales.customer_id, order_date, product_name
+from sales
+join members on sales.customer_id = members.customer_id
+join menu on menu.product_id = sales.product_id 
+where order_date < join_date
+group by customer_id;
