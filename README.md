@@ -18,4 +18,5 @@ Danny's Diner нуждается в вашей помощи, чтобы помо
 sales (продажи)
 menu (меню)
 members (клиенты)
-https://dbdiagram.io/d/Dannys-Diner-608d07e4b29a09603d12edbd?utm_source=dbdiagram_embed&utm_medium=bottom_open
+![1](https://github.com/Romancho4444/Romancho4444/assets/147538187/0bd26a99-b1b1-4f71-9424-71191d4b2f52)
+
