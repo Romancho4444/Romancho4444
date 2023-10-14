@@ -1,4 +1,5 @@
-<b>Всем привет! Решил принять участие в еженедельном конкурсе Danny’s SQL challenge </b>, подробная информация по этому челленджу будет в ссылке https://8weeksqlchallenge.com/case-study-1/
+<p align="center">><b>Danny’s SQL challenge</b></p>
+Всем привет! Решил принять участие в еженедельном конкурсе Danny’s SQL challenge, подробная информация по этому челленджу будет в ссылке https://8weeksqlchallenge.com/case-study-1/
  Итак, что имеем 
 
  Введение
