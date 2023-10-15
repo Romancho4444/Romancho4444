@@ -72,10 +72,29 @@ select customer_id, count(distinct order_date) attendance
 from sales
 group by customer_id;
 
-3. select customer_id, product_name
-from sales
-join menu on menu.product_id = sales.product_id
-group by customer_id;
+3. /* Для нахождения первого пункта меню,которого заказал каждый клиент необходимо:
+  - создать временную таблицу при помощи оператора with, где будет хранится первая дата заказа
+  - присоеденить к временной таблице таблицу продаж, используя поле customer_id и date
+  - присоеденить таблицу menu
+  - отсортировать полученные данные*/
+  
+  WITH first_purchase AS (
+    SELECT customer_id, MIN(order_date) AS first_purchase_date
+    FROM sales
+    GROUP BY 1
+    )
+
+  SELECT DISTINCT f.customer_id, 
+        s.product_id, 
+        m.product_name, 
+        f.first_purchase_date
+  FROM first_purchase f
+  LEFT JOIN sales s
+  ON f.customer_id = s.customer_id
+  AND f.first_purchase_date = s.order_date
+  LEFT JOIN menu m
+  USING(product_id)
+  ORDER BY customer_id
 
 4. /* Для поиска самого покупаемого товара и нахождения количества покупок клиентов необходимо:
   - таблицу sales необходимо присоединить к таблице menu, чтобы получить product_name
@@ -86,21 +105,4 @@ join menu on menu.product_id = sales.product_id
 group by product_name
 order by count desc;
 
-select customer_id, max(product_name)
-from sales
-join menu on menu.product_id = sales.product_id
-group by customer_id;
-
-select sales.customer_id, order_date, product_name
-from sales
-join members on sales.customer_id = members.customer_id
-join menu on menu.product_id = sales.product_id 
-where order_date >= join_date
-group by customer_id;
-
-select sales.customer_id, order_date, product_name
-from sales
-join members on sales.customer_id = members.customer_id
-join menu on menu.product_id = sales.product_id 
-where order_date < join_date
-group by customer_id;
+/* Ответы с 5-10 Впроцессе написания */
